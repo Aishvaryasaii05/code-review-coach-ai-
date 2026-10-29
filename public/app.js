@@ -64,6 +64,8 @@ const reviewWithLineTab=review;review=()=>{reviewWithLineTab();addLineInsightTab
 function addReviewLogo(){const heading=document.querySelector('.page-head h1');if(heading&&!heading.querySelector('.heading-logo')){const logo=document.createElement('img');logo.className='heading-logo';logo.src='/logo.svg';logo.alt='Code Review Coach review logo';heading.append(logo)}}
 const reviewWithMainLogo=review;review=()=>{reviewWithMainLogo();addReviewLogo()};render();
 const previousAddReviewLogo=addReviewLogo;addReviewLogo=()=>{previousAddReviewLogo();const image=document.querySelector('.heading-logo');const source=document.querySelector('.brand-mark svg');if(image&&source){const inlineLogo=source.cloneNode(true);inlineLogo.classList.add('heading-logo');inlineLogo.removeAttribute('width');inlineLogo.removeAttribute('height');image.replaceWith(inlineLogo)}};render();
+function removeEngineLabel(){const context=$('#reviewContext');if(!context)return;[...context.querySelectorAll('span')].find(item=>item.textContent.includes('Engine v2.4'))?.remove()}
+const reviewWithoutEngine=review;review=()=>{reviewWithoutEngine();removeEngineLabel()};render();
 function addMobileAnalysisOptions(){
   const layout=$('.review-layout');
   if(!layout||$('#mobileAnalysisOptions'))return;
