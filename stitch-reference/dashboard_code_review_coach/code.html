@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-container-high":"#2a2931","surface-container-highest":"#34343c","on-surface":"#e4e1ec","error":"#ffb4ab","primary-fixed-dim":"#d0bcff","surface-container-lowest":"#0e0e15","on-secondary":"#000da4","tertiary-fixed-dim":"#cbc1e5","surface":"#13131a","on-primary-fixed-variant":"#5516be","tertiary":"#cbc1e5","inverse-primary":"#6d3bd7","background":"#13131a","tertiary-container":"#948cae","on-primary-container":"#340080","on-error":"#690005","on-tertiary":"#322c49","primary":"#d0bcff","secondary-fixed-dim":"#bec2ff","tertiary-fixed":"#e7deff","on-background":"#e4e1ec","on-tertiary-fixed":"#1d1732","outline-variant":"#494454","on-surface-variant":"#cbc3d7","on-secondary-fixed-variant":"#222fc2","surface-tint":"#d0bcff","primary-fixed":"#e9ddff","on-tertiary-fixed-variant":"#494360","error-container":"#93000a","secondary-fixed":"#e0e0ff","surface-dim":"#13131a","inverse-on-surface":"#303038","surface-variant":"#34343c","surface-bright":"#393841","on-tertiary-container":"#2c2641","on-secondary-container":"#acb3ff","on-secondary-fixed":"#000569","on-error-container":"#ffdad6","secondary":"#bec2ff","surface-container":"#1f1f26","on-primary":"#3c0091","surface-container-low":"#1b1b22","on-primary-fixed":"#23005c","secondary-container":"#2532c4","inverse-surface":"#e4e1ec","outline":"#958ea0","primary-container":"#a078ff"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"space-lg":"1.5rem","margin":"1.5rem","margin-sm":"1rem","space-xl":"2rem","space-xs":"0.25rem","gutter":"1rem","space-sm":"0.5rem","gutter-sm":"0.5rem","space-md":"1rem"},fontFamily:{"headline-md":["Inter"],"code-lg":["JetBrains Mono"],"code-sm":["JetBrains Mono"],"code-md":["JetBrains Mono"],"body-lg":["Inter"],"label-badge":["JetBrains Mono"],"body-md":["Inter"],"headline-lg-mobile":["Inter"],"body-sm":["Inter"],"headline-xl-mobile":["Inter"],"headline-lg":["Inter"],"headline-xl":["Inter"]},fontSize:{"headline-md":["20px",{lineHeight:"28px",letterSpacing:"-0.01em",fontWeight:"600"}],"code-lg":["14px",{lineHeight:"22px",fontWeight:"500"}],"code-sm":["12px",{lineHeight:"16px",fontWeight:"400"}],"code-md":["13px",{lineHeight:"20px",fontWeight:"400"}],"body-lg":["16px",{lineHeight:"24px",fontWeight:"400"}],"label-badge":["11px",{lineHeight:"14px",letterSpacing:"0.04em",fontWeight:"600"}],"body-md":["14px",{lineHeight:"20px",fontWeight:"400"}],"headline-lg-mobile":["22px",{lineHeight:"30px",letterSpacing:"-0.01em",fontWeight:"700"}],"body-sm":["13px",{lineHeight:"18px",fontWeight:"400"}],"headline-xl-mobile":["26px",{lineHeight:"34px",letterSpacing:"-0.02em",fontWeight:"700"}],"headline-lg":["28px",{lineHeight:"36px",letterSpacing:"-0.02em",fontWeight:"700"}],"headline-xl":["32px",{lineHeight:"40px",letterSpacing:"-0.02em",fontWeight:"700"}]}}}}</script></head><body class="bg-surface-container-lowest font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-[248px] bg-surface-container-lowest border-r border-outline-variant/40 z-50 flex flex-col justify-between select-none"><div class="flex flex-col"><div class="h-16 px-5 flex items-center gap-3 border-b border-outline-variant/30"><img alt="Code Review Coach Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XOcFb_vCekwyk0FtKNP3qMtRlWjEhCUhDr_WIQxFkxPWhHNapIAWHK5wuNRO28neGi0hRyALgzFGWEU2m7-vNcPJS1XR8R2r628LprrFYuz31AS2NGg8_q2bBDquwqzOa-JQa6x9x2W6AmTkmAFIQ1qWfU6E_-Hm7fppn2NHZ_bsJ0tQ5tJF-1O3VVdxiMxl-ewt1ihi90U3a-z2b8qG3FLUtw0mjOGweXk6gFgi0"/><div class="flex items-center gap-2 overflow-hidden"><span class="font-headline-md text-[15px] font-bold text-on-surface truncate">Code Review Coach</span><span class="px-1.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed text-[10px] font-code-sm font-semibold uppercase tracking-wider">Beta</span></div></div><div class="px-3 pt-6"><p class="px-3 pb-2 text-[11px] font-label-badge text-on-surface-variant uppercase tracking-wider">Workspace Menu</p><nav class="flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary font-medium rounded-lg shadow-sm"><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md" data-path="home" href="#"><span class="material-symbols-outlined text-[20px]">home</span><span>Home</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md" data-path="code-review" href="#"><span class="material-symbols-outlined text-[20px]">rate_review</span><span>Code Review</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md" data-path="release-notes" href="#"><span class="material-symbols-outlined text-[20px]">description</span><span>Release Notes</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md" data-path="history" href="#"><span class="material-symbols-outlined text-[20px]">history</span><span>History</span></a><a aria-current="page" class="flex items-center gap-3 px-3 py-2 transition-colors bg-primary-container text-on-primary font-medium rounded-lg shadow-sm" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[20px]">dashboard</span><span>Dashboard</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-md" data-path="settings" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span>Settings</span></a></nav></div></div><div class="p-3 border-t border-outline-variant/30 flex flex-col gap-3"><div class="p-3 rounded-lg bg-surface-container-low border border-outline-variant/30 flex flex-col gap-2"><div class="flex items-center justify-between"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span class="font-code-sm text-code-sm text-on-surface font-medium truncate">prod-repo</span></div><span class="px-1.5 py-0.5 rounded bg-surface-container-highest text-on-surface-variant text-[10px] font-code-sm">main</span></div><div class="flex items-center justify-between text-on-surface-variant font-code-sm text-[11px]"><span>Sync status</span><span class="text-primary font-medium flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">check_circle</span>Clean</span></div></div><div class="flex items-center justify-between px-2 text-[11px] font-code-sm text-on-surface-variant"><span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[14px]">commit</span>Engine v2.4.0</span><span class="text-primary-fixed-dim hover:underline cursor-pointer">Docs</span></div></div></aside><div class="pl-[248px]"><header class="fixed top-0 left-[248px] right-0 h-16 bg-surface-container-lowest/95 backdrop-blur-md border-b border-outline-variant/40 z-40 px-6 flex items-center justify-between"><div class="flex items-center gap-2 text-body-sm font-body-sm text-on-surface-variant"><span class="material-symbols-outlined text-[18px] text-on-surface-variant">folder_open</span><span class="hover:text-on-surface transition-colors cursor-pointer">Workspace</span><span class="text-outline-variant">/</span><span class="font-medium text-on-surface flex items-center gap-1.5 bg-surface-container px-2 py-0.5 rounded border border-outline-variant/30"><span class="material-symbols-outlined text-[14px] text-primary">source</span>Production Repo (main)</span></div><div class="flex items-center gap-4"><button class="flex items-center gap-3 px-3 py-1.5 rounded-lg bg-surface-container border border-outline-variant/40 text-on-surface-variant hover:text-on-surface hover:border-outline-variant transition-colors" type="button"><span class="flex items-center gap-2 font-body-sm text-body-sm"><span class="material-symbols-outlined text-[18px]">search</span><span>Search...</span></span><kbd class="px-1.5 py-0.5 rounded bg-surface-container-highest border border-outline-variant/50 text-[10px] font-code-sm text-on-surface-variant">Cmd+K</kbd></button><div class="h-4 w-px bg-outline-variant/40"></div><button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" title="Toggle Theme" type="button"><span class="material-symbols-outlined text-[20px]">dark_mode</span></button><button class="relative w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" title="Help &amp; Documentation" type="button"><span class="material-symbols-outlined text-[20px]">help_outline</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-primary-container ring-2 ring-surface-container-lowest"></span></button><div class="flex items-center gap-2 pl-1"><div class="relative flex items-center"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-outline-variant/50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsX48_o-EA3a-oAgJoz6huUNZZ4kl6gjH_ckd5yRoiuJYqoR5aw3io7hIrqqrHiZ5BhYtg0kQzTM7ZmZkMUqiC9R1mK1F_-N92w5n_W8KDPUigDYpbMLqmCckrIyQo8FMjHthMPLvz_ekUfDpHamPErDPCOvAm6-ooW0KvhZRJhCWSKFvMtOrMhCcitmWHYBrWdlLxW2tWQbKXjoSyEIKPwRu9_CoAIALqs9lxHg"/><span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-secondary-fixed ring-2 ring-surface-container-lowest"></span></div></div></div></header><main class="relative pt-16 min-h-screen bg-surface-container-lowest p-8"><div class="flex flex-col w-full text-on-surface">
+<div class="flex flex-col gap-6">
+<!-- Top Action & Viewport Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container text-primary font-label-badge text-label-badge uppercase tracking-wider">
+<span>✦</span> Engine Pulse: Active
+          </span>
+<span class="text-outline font-code-sm text-code-sm">v2.4.0-prod</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">
+          Workspace Analytics &amp; Velocity
+        </h1>
+<p class="font-body-md text-body-md text-on-surface-variant">
+          Continuous inspection telemetry, risk interception quotas, and automated release pipeline throughput.
+        </p>
+</div>
+<div class="flex items-center gap-3 self-start md:self-auto">
+<!-- Date Selector Pills -->
+<div class="inline-flex p-1 rounded-xl bg-surface-container-low" id="range-picker">
+<button class="px-3 py-1.5 rounded-lg text-primary bg-surface-container-high font-code-sm text-code-sm font-medium transition-all" data-range="week" type="button">
+            This Week
+          </button>
+<button class="px-3 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-code-sm text-code-sm transition-all" data-range="month" type="button">
+            Last 30 Days
+          </button>
+<button class="px-3 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-code-sm text-code-sm transition-all" data-range="quarter" type="button">
+            Quarter to Date
+          </button>
+</div>
+<!-- Export Action -->
+<button class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-on-primary font-headline-md text-code-lg font-semibold hover:bg-primary-fixed-dim transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Export PDF Report</span>
+</button>
+</div>
+</div>
+<!-- Row 1: KPI Stat Grid (4 Bento Modules) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Metric 1: Total Reviews -->
+<div class="flex flex-col justify-between p-5 rounded-xl bg-surface-container-low transition-all duration-200">
+<div class="flex items-start justify-between">
+<span class="font-label-badge text-label-badge uppercase tracking-wider text-on-surface-variant">Reviews Completed</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">rate_review</span>
+</div>
+</div>
+<div class="mt-4 flex items-baseline justify-between">
+<span class="font-headline-xl text-headline-xl text-on-surface font-bold">1,284</span>
+<span class="inline-flex items-center gap-1 font-code-sm text-code-sm text-primary font-medium">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +24%
+          </span>
+</div>
+<div class="mt-3 pt-3 flex items-center justify-between text-on-surface-variant font-code-sm text-code-sm">
+<span>Target: 1,000/mo</span>
+<span class="text-on-surface">128.4% pacing</span>
+</div>
+</div>
+<!-- Metric 2: Release Notes -->
+<div class="flex flex-col justify-between p-5 rounded-xl bg-surface-container-low transition-all duration-200">
+<div class="flex items-start justify-between">
+<span class="font-label-badge text-label-badge uppercase tracking-wider text-on-surface-variant">Release Notes Gen</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">auto_stories</span>
+</div>
+</div>
+<div class="mt-4 flex items-baseline justify-between">
+<span class="font-headline-xl text-headline-xl text-on-surface font-bold">342</span>
+<span class="inline-flex items-center gap-1 font-code-sm text-code-sm text-secondary font-medium">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +12%
+          </span>
+</div>
+<div class="mt-3 pt-3 flex items-center justify-between text-on-surface-variant font-code-sm text-code-sm">
+<span>Automated changelogs</span>
+<span class="text-on-surface">100% verified</span>
+</div>
+</div>
+<!-- Metric 3: Low Risk Commits -->
+<div class="flex flex-col justify-between p-5 rounded-xl bg-surface-container-low transition-all duration-200">
+<div class="flex items-start justify-between">
+<span class="font-label-badge text-label-badge uppercase tracking-wider text-on-surface-variant">Low Risk Passes</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary-fixed">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</div>
+</div>
+<div class="mt-4 flex items-baseline justify-between">
+<span class="font-headline-xl text-headline-xl text-on-surface font-bold">1,048</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-container-high text-primary-fixed font-code-sm text-code-sm">
+            81.6% clean
+          </span>
+</div>
+<div class="mt-3 pt-3 flex items-center justify-between text-on-surface-variant font-code-sm text-code-sm">
+<span>Zero human intervention</span>
+<span class="text-on-surface">Auto-merged</span>
+</div>
+</div>
+<!-- Metric 4: Interceptions -->
+<div class="flex flex-col justify-between p-5 rounded-xl bg-surface-container-low transition-all duration-200">
+<div class="flex items-start justify-between">
+<span class="font-label-badge text-label-badge uppercase tracking-wider text-on-surface-variant">Threats Intercepted</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[18px]">security_update_warning</span>
+</div>
+</div>
+<div class="mt-4 flex items-baseline justify-between">
+<span class="font-headline-xl text-headline-xl text-on-surface font-bold">236</span>
+<span class="inline-flex items-center gap-1 font-code-sm text-code-sm text-error font-medium">
+<span class="w-2 h-2 rounded-full bg-error animate-ping"></span> Prevented
+          </span>
+</div>
+<div class="mt-3 pt-3 flex items-center justify-between text-on-surface-variant font-code-sm text-code-sm">
+<span>Sev-1 &amp; Sev-2 blocks</span>
+<span class="text-on-surface">0 leaks</span>
+</div>
+</div>
+</div>
+<!-- Row 2: Deep Telemetry Visualizations (8 / 4 Grid) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+<!-- Chart Left: Velocity Bar Chart (8 cols) -->
+<div class="lg:col-span-8 p-6 rounded-xl bg-surface-container-low flex flex-col justify-between">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">bar_chart</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h2 class="font-headline-md text-headline-md text-on-surface">Weekly Review Velocity &amp; Cadence</h2>
+<span class="text-primary text-[14px]">✦</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Daily volume filtered across production push hooks</p>
+</div>
+</div>
+<div class="flex items-center gap-4 font-code-sm text-code-sm">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded bg-primary"></span>
+<span class="text-on-surface-variant">Scanned</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded bg-secondary"></span>
+<span class="text-on-surface-variant">Automated</span>
+</div>
+<div class="px-2.5 py-1 rounded bg-surface-container text-primary font-medium">
+              ~4.2m turnaround
+            </div>
+</div>
+</div>
+<!-- Custom SVG Bar Chart -->
+<div class="py-4">
+<div class="h-56 w-full flex items-end justify-between gap-3 sm:gap-6 px-2">
+<!-- Monday -->
+<div class="flex-1 flex flex-col items-center gap-2 h-full justify-end group cursor-pointer">
+<div class="text-[11px] font-code-sm text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">142</div>
+<div class="w-full max-w-[40px] flex flex-col items-stretch gap-1">
+<div class="w-full bg-secondary rounded-t h-12 group-hover:opacity-80 transition-all"></div>
+<div class="w-full bg-primary rounded-b h-28 group-hover:opacity-80 transition-all"></div>
+</div>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Mon</span>
+</div>
+<!-- Tuesday -->
+<div class="flex-1 flex flex-col items-center gap-2 h-full justify-end group cursor-pointer">
+<div class="text-[11px] font-code-sm text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">198</div>
+<div class="w-full max-w-[40px] flex flex-col items-stretch gap-1">
+<div class="w-full bg-secondary rounded-t h-16 group-hover:opacity-80 transition-all"></div>
+<div class="w-full bg-primary rounded-b h-36 group-hover:opacity-80 transition-all"></div>
+</div>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Tue</span>
+</div>
+<!-- Wednesday -->
+<div class="flex-1 flex flex-col items-center gap-2 h-full justify-end group cursor-pointer">
+<div class="text-[11px] font-code-sm text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">234</div>
+<div class="w-full max-w-[40px] flex flex-col items-stretch gap-1">
+<div class="w-full bg-secondary rounded-t h-20 group-hover:opacity-80 transition-all"></div>
+<div class="w-full bg-primary rounded-b h-44 group-hover:opacity-80 transition-all"></div>
+</div>
+<span class="font-code-sm text-code-sm text-primary font-medium">Wed</span>
+</div>
+<!-- Thursday -->
+<div class="flex-1 flex flex-col items-center gap-2 h-full justify-end group cursor-pointer">
+<div class="text-[11px] font-code-sm text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">210</div>
+<div class="w-full max-w-[40px] flex flex-col items-stretch gap-1">
+<div class="w-full bg-secondary rounded-t h-14 group-hover:opacity-80 transition-all"></div>
+<div class="w-full bg-primary rounded-b h-40 group-hover:opacity-80 transition-all"></div>
+</div>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Thu</span>
+</div>
+<!-- Friday -->
+<div class="flex-1 flex flex-col items-center gap-2 h-full justify-end group cursor-pointer">
+<div class="text-[11px] font-code-sm text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">275</div>
+<div class="w-full max-w-[40px] flex flex-col items-stretch gap-1">
+<div class="w-full bg-secondary rounded-t h-24 group-hover:opacity-80 transition-all"></div>
+<div class="w-full bg-primary rounded-b h-48 group-hover:opacity-80 transition-all"></div>
+</div>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Fri</span>
+</div>
+<!-- Saturday -->
+<div class="flex-1 flex flex-col items-center gap-2 h-full justify-end group cursor-pointer">
+<div class="text-[11px] font-code-sm text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">82</div>
+<div class="w-full max-w-[40px] flex flex-col items-stretch gap-1">
+<div class="w-full bg-secondary rounded-t h-6 group-hover:opacity-80 transition-all"></div>
+<div class="w-full bg-primary rounded-b h-14 group-hover:opacity-80 transition-all"></div>
+</div>
+<span class="font-code-sm text-code-sm text-outline">Sat</span>
+</div>
+<!-- Sunday -->
+<div class="flex-1 flex flex-col items-center gap-2 h-full justify-end group cursor-pointer">
+<div class="text-[11px] font-code-sm text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">43</div>
+<div class="w-full max-w-[40px] flex flex-col items-stretch gap-1">
+<div class="w-full bg-secondary rounded-t h-4 group-hover:opacity-80 transition-all"></div>
+<div class="w-full bg-primary rounded-b h-8 group-hover:opacity-80 transition-all"></div>
+</div>
+<span class="font-code-sm text-code-sm text-outline">Sun</span>
+</div>
+</div>
+</div>
+<!-- Metric Subtext Footer -->
+<div class="flex flex-wrap items-center justify-between pt-3 gap-2 text-on-surface-variant font-code-sm text-code-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">bolt</span>
+<span>Peak review load: Friday 16:00 UTC (42 PRs/hr)</span>
+</div>
+<div class="text-on-surface font-medium">99.4% SLA Adherence</div>
+</div>
+</div>
+<!-- Chart Right: Severity Donut Breakdown (4 cols) -->
+<div class="lg:col-span-4 p-6 rounded-xl bg-surface-container-low flex flex-col justify-between">
+<div class="flex items-center justify-between pb-2">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">pie_chart</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Risk Severity</h2>
+</div>
+<span class="font-label-badge text-label-badge text-on-surface-variant uppercase">Distribution</span>
+</div>
+<!-- Donut Visual (Inline SVG) -->
+<div class="relative flex items-center justify-center my-3">
+<svg class="w-48 h-48 -rotate-90 transform" viewbox="0 0 120 120">
+<!-- Background Ring -->
+<circle class="text-surface-container" cx="60" cy="60" fill="none" r="48" stroke="currentColor" stroke-width="14"></circle>
+<!-- Segment 1: Low Risk (72%) -> circumference ~301.6, stroke-dasharray ~ 217.15 301.6 -->
+<circle class="text-primary-fixed" cx="60" cy="60" fill="none" r="48" stroke="currentColor" stroke-dasharray="217.15 301.6" stroke-dashoffset="0" stroke-width="14"></circle>
+<!-- Segment 2: Med Risk (21%) -> length ~ 63.33 -->
+<circle class="text-tertiary-container" cx="60" cy="60" fill="none" r="48" stroke="currentColor" stroke-dasharray="63.33 301.6" stroke-dashoffset="-217.15" stroke-width="14"></circle>
+<!-- Segment 3: High Risk (7%) -> length ~ 21.11 -->
+<circle class="text-error" cx="60" cy="60" fill="none" r="48" stroke="currentColor" stroke-dasharray="21.11 301.6" stroke-dashoffset="-280.48" stroke-width="14"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none text-center">
+<span class="font-headline-lg text-headline-lg font-bold text-on-surface">1,284</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant tracking-wider uppercase">Scanned</span>
+</div>
+</div>
+<!-- Legend Details -->
+<div class="space-y-2 pt-2">
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-high font-body-sm text-body-sm">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-fixed"></span>
+<span class="text-on-surface">Low Risk</span>
+</div>
+<div class="flex items-center gap-3 font-code-sm text-code-sm">
+<span class="text-on-surface-variant">924 PRs</span>
+<span class="font-bold text-on-surface">72%</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-high font-body-sm text-body-sm">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary-container"></span>
+<span class="text-on-surface">Medium Risk</span>
+</div>
+<div class="flex items-center gap-3 font-code-sm text-code-sm">
+<span class="text-on-surface-variant">270 PRs</span>
+<span class="font-bold text-on-surface">21%</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-high font-body-sm text-body-sm">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-error"></span>
+<span class="text-on-surface">High &amp; Critical</span>
+</div>
+<div class="flex items-center gap-3 font-code-sm text-code-sm">
+<span class="text-on-surface-variant">90 PRs</span>
+<span class="font-bold text-error">7%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Row 3: Granular Inspection Details (Bento Grid: 4 / 4 / 4) -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+<!-- Sub-Tile 1: Top Vulnerability Categories -->
+<div class="p-6 rounded-xl bg-surface-container-low flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">bug_report</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Vulnerabilities</h3>
+</div>
+<span class="font-label-badge text-label-badge text-outline uppercase">Top Flags</span>
+</div>
+<div class="space-y-3.5">
+<!-- Item 1 -->
+<div>
+<div class="flex justify-between font-body-sm text-body-sm mb-1">
+<span class="text-on-surface font-medium">SQL / ORM Parameter Injection</span>
+<span class="font-code-sm text-code-sm text-error">84 caught</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-error rounded-full" style="width: 78%;"></div>
+</div>
+</div>
+<!-- Item 2 -->
+<div>
+<div class="flex justify-between font-body-sm text-body-sm mb-1">
+<span class="text-on-surface font-medium">Race Conditions &amp; Deadlocks</span>
+<span class="font-code-sm text-code-sm text-tertiary-container">62 caught</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-tertiary-container rounded-full" style="width: 58%;"></div>
+</div>
+</div>
+<!-- Item 3 -->
+<div>
+<div class="flex justify-between font-body-sm text-body-sm mb-1">
+<span class="text-on-surface font-medium">Unhandled Promise Rejections</span>
+<span class="font-code-sm text-code-sm text-primary">51 caught</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 44%;"></div>
+</div>
+</div>
+<!-- Item 4 -->
+<div>
+<div class="flex justify-between font-body-sm text-body-sm mb-1">
+<span class="text-on-surface font-medium">Implicit Type Coercion Edgecases</span>
+<span class="font-code-sm text-code-sm text-secondary">39 caught</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 32%;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pt-4 mt-4 flex items-center justify-between font-code-sm text-code-sm text-on-surface-variant">
+<span>Total prevented defects</span>
+<span class="text-on-surface font-semibold">236 incidents</span>
+</div>
+</div>
+<!-- Sub-Tile 2: Language Breakdown -->
+<div class="p-6 rounded-xl bg-surface-container-low flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">code</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Language Telemetry</h3>
+</div>
+<span class="font-label-badge text-label-badge text-outline uppercase">Stack</span>
+</div>
+<div class="space-y-4">
+<!-- TS -->
+<div class="p-2.5 rounded-lg bg-surface-container-high">
+<div class="flex justify-between items-center mb-1.5">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+<span class="font-headline-md text-code-md text-on-surface font-semibold">TypeScript / React</span>
+</div>
+<span class="font-code-sm text-code-sm text-primary font-bold">48%</span>
+</div>
+<div class="w-full h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 48%;"></div>
+</div>
+</div>
+<!-- Python -->
+<div class="p-2.5 rounded-lg bg-surface-container-high">
+<div class="flex justify-between items-center mb-1.5">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<span class="font-headline-md text-code-md text-on-surface font-semibold">Python (FastAPI / ML)</span>
+</div>
+<span class="font-code-sm text-code-sm text-secondary font-bold">26%</span>
+</div>
+<div class="w-full h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary" style="width: 26%;"></div>
+</div>
+</div>
+<!-- Go -->
+<div class="p-2.5 rounded-lg bg-surface-container-high">
+<div class="flex justify-between items-center mb-1.5">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-fixed"></span>
+<span class="font-headline-md text-code-md text-on-surface font-semibold">Go Microservices</span>
+</div>
+<span class="font-code-sm text-code-sm text-primary-fixed font-bold">18%</span>
+</div>
+<div class="w-full h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-fixed" style="width: 18%;"></div>
+</div>
+</div>
+<!-- Others -->
+<div class="p-2.5 rounded-lg bg-surface-container-high">
+<div class="flex justify-between items-center mb-1.5">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-outline"></span>
+<span class="font-headline-md text-code-md text-on-surface font-semibold">Shell, SQL &amp; Rust</span>
+</div>
+<span class="font-code-sm text-code-sm text-on-surface-variant font-bold">8%</span>
+</div>
+<div class="w-full h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-outline" style="width: 8%;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pt-3 mt-3 flex items-center justify-between font-code-sm text-code-sm text-on-surface-variant">
+<span>Static AST Analyzers</span>
+<span class="text-primary font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> 4 active
+          </span>
+</div>
+</div>
+<!-- Sub-Tile 3: Recent Critical Interceptions List -->
+<div class="p-6 rounded-xl bg-surface-container-low flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[18px]">gavel</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Recent Interceptions</h3>
+</div>
+<span class="font-label-badge text-label-badge text-error uppercase font-semibold">Live Audit</span>
+</div>
+<div class="space-y-2.5">
+<!-- Interception 1 -->
+<div class="p-3 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors group cursor-pointer">
+<div class="flex items-center justify-between">
+<span class="font-code-sm text-code-sm text-on-surface font-semibold group-hover:text-primary transition-colors">PR #1084 • auth-service</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-code-sm bg-error-container text-error font-medium">Critical</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 line-clamp-1">Exposed JWT payload decoding without secret verification key</p>
+<div class="mt-2 flex items-center justify-between text-outline font-code-sm text-[11px]">
+<span>Blocked 14m ago</span>
+<span class="text-primary flex items-center gap-0.5">Inspect Diff <span class="material-symbols-outlined text-[12px]">arrow_forward</span></span>
+</div>
+</div>
+<!-- Interception 2 -->
+<div class="p-3 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors group cursor-pointer">
+<div class="flex items-center justify-between">
+<span class="font-code-sm text-code-sm text-on-surface font-semibold group-hover:text-primary transition-colors">PR #1081 • billing-api</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-code-sm bg-surface-container-high text-tertiary-container font-medium">Medium</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 line-clamp-1">Concurrent webhook retry causing double-debit in checkout</p>
+<div class="mt-2 flex items-center justify-between text-outline font-code-sm text-[11px]">
+<span>Blocked 2h ago</span>
+<span class="text-primary flex items-center gap-0.5">Inspect Diff <span class="material-symbols-outlined text-[12px]">arrow_forward</span></span>
+</div>
+</div>
+<!-- Interception 3 -->
+<div class="p-3 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors group cursor-pointer">
+<div class="flex items-center justify-between">
+<span class="font-code-sm text-code-sm text-on-surface font-semibold group-hover:text-primary transition-colors">PR #1079 • telemetry-worker</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-code-sm bg-error-container text-error font-medium">High</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 line-clamp-1">Unbounded memory slice growth in raw streaming buffer</p>
+<div class="mt-2 flex items-center justify-between text-outline font-code-sm text-[11px]">
+<span>Blocked 5h ago</span>
+<span class="text-primary flex items-center gap-0.5">Inspect Diff <span class="material-symbols-outlined text-[12px]">arrow_forward</span></span>
+</div>
+</div>
+</div>
+</div>
+<div class="pt-3 mt-2 flex items-center justify-center">
+<a class="font-code-sm text-code-sm text-primary hover:text-primary-fixed transition-colors flex items-center gap-1 font-medium" href="#">
+            View full compliance interception log (236 total)
+            <span class="material-symbols-outlined text-[14px]">arrow_outward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- AI Coach Banner / Floating Review Status bar -->
+<div class="p-4 rounded-xl bg-surface-container-low flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<!-- AI Coach Gradient Orb -->
+<div class="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center bg-gradient-to-br from-secondary-container to-primary-container shadow-sm">
+<span class="material-symbols-outlined text-on-primary text-[20px]">psychology</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-body-lg text-on-surface font-semibold">Autonomous Guardrail Engine v2.4</span>
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-code-sm text-[10px] font-semibold uppercase">Active Guard</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Real-time LLM critique model calibrated for micro-commit feedback and zero-latency gatekeeping.</p>
+</div>
+</div>
+<div class="flex items-center gap-3 self-end sm:self-auto">
+<button class="px-3.5 py-1.5 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-bright font-code-sm text-code-sm transition-colors" type="button">
+          Configure Rulesets
+        </button>
+<button class="px-3.5 py-1.5 rounded-lg bg-primary text-on-primary hover:bg-primary-fixed-dim font-code-sm text-code-sm font-semibold transition-colors flex items-center gap-1.5" type="button">
+<span>Run Workspace Audit</span>
+<span class="material-symbols-outlined text-[16px]">play_arrow</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Range button selector interaction
+  document.querySelectorAll('#range-picker button').forEach(button => {
+    button.addEventListener('click', () => {
+      document.querySelectorAll('#range-picker button').forEach(b => {
+        b.className = 'px-3 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-code-sm text-code-sm transition-all';
+      });
+      button.className = 'px-3 py-1.5 rounded-lg text-primary bg-surface-container-high font-code-sm text-code-sm font-medium transition-all';
+    });
+  });
+</script></main></div></body></html>
