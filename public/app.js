@@ -64,3 +64,14 @@ const reviewWithLineTab=review;review=()=>{reviewWithLineTab();addLineInsightTab
 function addReviewLogo(){const heading=document.querySelector('.page-head h1');if(heading&&!heading.querySelector('.heading-logo')){const logo=document.createElement('img');logo.className='heading-logo';logo.src='/logo.svg';logo.alt='Code Review Coach review logo';heading.append(logo)}}
 const reviewWithMainLogo=review;review=()=>{reviewWithMainLogo();addReviewLogo()};render();
 const previousAddReviewLogo=addReviewLogo;addReviewLogo=()=>{previousAddReviewLogo();const image=document.querySelector('.heading-logo');const source=document.querySelector('.brand-mark svg');if(image&&source){const inlineLogo=source.cloneNode(true);inlineLogo.classList.add('heading-logo');inlineLogo.removeAttribute('width');inlineLogo.removeAttribute('height');image.replaceWith(inlineLogo)}};render();
+function addMobileAnalysisOptions(){
+  const layout=$('.review-layout');
+  if(!layout||$('#mobileAnalysisOptions'))return;
+  layout.insertAdjacentHTML('afterbegin','<div class="mobile-analysis-options" id="mobileAnalysisOptions"><div class="mobile-analysis-label">Analysis options</div><div class="mobile-analysis-tabs" role="tablist" aria-label="Analysis options"><button class="button soft" data-mobile-insight="findings" role="tab">Findings</button><button class="button" data-mobile-insight="complexity" role="tab">Complexity &amp; Readability</button><button class="button" data-mobile-insight="summary" role="tab">AI Summary</button><button class="button" data-mobile-insight="analysis" role="tab">AI Analysis</button><button class="button" data-mobile-insight="line" role="tab">Line by Line</button></div></div>');
+  $('#mobileAnalysisOptions').querySelectorAll('[data-mobile-insight]').forEach(button=>button.onclick=()=>{
+    const target=$(`#reviewResult [data-insight="${button.dataset.mobileInsight}"]`);
+    if(target){target.click();$('#mobileAnalysisOptions').querySelectorAll('[data-mobile-insight]').forEach(item=>item.classList.remove('soft'));button.classList.add('soft')}
+    document.querySelector('#reviewResult')?.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+}
+const reviewWithMobileAnalysis=review;review=()=>{reviewWithMobileAnalysis();addMobileAnalysisOptions()};render();
