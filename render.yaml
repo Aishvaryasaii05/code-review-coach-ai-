@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: code-review-coach
+    runtime: node
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: IBM_API_KEY
+        sync: false
+      - key: IBM_PROJECT_ID
+        sync: false
+      - key: IBM_REGION
+        value: us-south
+      - key: IBM_MODEL
+        value: ibm/granite-3-8b-instruct
+      - key: IBM_API_VERSION
+        value: 2024-03-31
