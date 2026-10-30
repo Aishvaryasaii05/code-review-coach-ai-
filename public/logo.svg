@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="title desc">
   <title id="title">Code Review Coach</title>
   <desc id="desc">Rounded code review badge with a checkmark</desc>
-  <defs><linearGradient id="badge" x1="13" y1="10" x2="84" y2="88" gradientUnits="userSpaceOnUse"><stop stop-color="#60a5fa"/><stop offset="1" stop-color="#1d4ed8"/></linearGradient></defs>
-  <rect x="4" y="4" width="88" height="88" rx="22" fill="#0f1b2d" stroke="url(#badge)" stroke-width="4"/>
-  <path d="M48 20 72 29v18c0 15-10 25-24 30-14-5-24-15-24-30V29l24-9Z" fill="#102a43" stroke="#38bdf8" stroke-width="4" stroke-linejoin="round"/>
-  <path d="m36 48 8 8 17-19" fill="none" stroke="#dbeafe" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="75" cy="20" r="6" fill="#34d399" stroke="#08111f" stroke-width="3"/>
+  <defs><linearGradient id="badge" x1="13" y1="10" x2="84" y2="88" gradientUnits="userSpaceOnUse"><stop stop-color="#c99568"/><stop offset="1" stop-color="#7a4b2d"/></linearGradient></defs>
+  <rect x="4" y="4" width="88" height="88" rx="22" fill="#241b17" stroke="url(#badge)" stroke-width="4"/>
+  <path d="M48 20 72 29v18c0 15-10 25-24 30-14-5-24-15-24-30V29l24-9Z" fill="#3a2920" stroke="#b87333" stroke-width="4" stroke-linejoin="round"/>
+  <path d="m36 48 8 8 17-19" fill="none" stroke="#f1e8de" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="75" cy="20" r="6" fill="#7cc9a0" stroke="#17120f" stroke-width="3"/>
 </svg>
