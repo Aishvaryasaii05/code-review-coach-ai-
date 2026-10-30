@@ -1,4 +1,6 @@
-const API = `${location.protocol}//${location.hostname || 'localhost'}:3001/api`;
+const API = ['localhost', '127.0.0.1'].includes(location.hostname)
+  ? `${location.protocol}//${location.hostname}:3001/api`
+  : `${location.origin}/api`;
 const navItems = [['home','⌂','Home'],['review','⌁','Code Review'],['release','▤','Release Notes'],['history','◷','History'],['dashboard','▦','Dashboard'],['settings','⚙','Settings']];
 const state = { tab: location.hash.slice(1) || 'home', history: [] };
 const $ = (s) => document.querySelector(s);
