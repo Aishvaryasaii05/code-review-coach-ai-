@@ -1,15 +1,205 @@
-<!doctype html>
-<html lang="en" data-theme="dark">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Code Review Coach</title><link rel="icon" href="/logo.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Code Review Coach — Understand Every Change</title>
+<meta name="color-scheme" content="dark">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--card:#0b0b0f;--line:#1c1c26;--text:#f4f2ff;--mut:#9895ad;--pur:#5a4fcf;--pur2:#4a40b0;--f:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--text);font:400 15px/1.6 var(--f);overflow-x:hidden}
+a{color:inherit;text-decoration:none}h1,h2,h3,p{margin:0}em{font-weight:700}
+:focus-visible{outline:2px solid #9aa8ff;outline-offset:3px;border-radius:6px}
+#fx{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0;transition:opacity .6s}
+main,header,footer{position:relative;z-index:1}
+.wrap{width:min(1180px,100% - 48px);margin:auto}
+.glow{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 45% 38% at 6% 0,rgba(110,80,255,.45),transparent 70%)}
+/* loader */
+#ld{position:fixed;inset:0;z-index:99;background:#000;display:grid;place-items:center;transition:opacity .6s,visibility .6s}
+#ld.x{opacity:0;visibility:hidden}
+.ldb{width:150px;height:210px;border:1px solid #2a2a3a;border-radius:6px;position:relative;overflow:hidden;padding:10px;font-size:12px;letter-spacing:.1em}
+.ldb b{font-size:26px;font-weight:600;letter-spacing:0}.ldf{position:absolute;left:0;right:0;bottom:0;height:0;background:linear-gradient(#5a4fcf,#251d63);z-index:-1}
+.ldb span{position:absolute;left:10px;bottom:10px}
+/* nav */
+header{position:fixed;top:0;left:0;right:0;z-index:50;height:64px;display:flex;align-items:center;background:linear-gradient(#000c,#0000)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-weight:600;letter-spacing:.18em;font-size:13px}
+nav{display:flex;gap:32px;font-size:13px;color:var(--mut)}nav a:hover{color:#fff}
+.pill{display:inline-flex;align-items:center;gap:10px;border:1px solid #2c2c3c;border-radius:999px;padding:4px 4px 4px 16px;font-size:12px;background:#000a}
+.pill i{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#fff;color:#000;font-style:normal}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:999px;background:var(--pur);color:#fff;font-size:13px;font-weight:500;border:0;cursor:pointer;transition:background .2s,transform .2s}
+.btn:hover{background:#6b5fe6;transform:translateY(-1px)}.lnk{font-size:13px}.lnk:hover{text-decoration:underline}
+section{padding:112px 0;position:relative}
+.mark{position:absolute;left:0;right:0;top:18vh;text-align:center;font-size:clamp(80px,17vw,240px);font-weight:700;letter-spacing:-.04em;color:#fff;opacity:.05;white-space:nowrap;pointer-events:none;user-select:none}
+/* hero */
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:96px 0 48px}
+#hero h1{font-size:clamp(32px,5.2vw,60px);font-weight:400;line-height:1.12;letter-spacing:-.02em;text-align:center;margin-top:8vh}
+#hero h1 em{font-style:italic}.ch{display:inline-block;opacity:0;transform:translateY(.6em);animation:up .8s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes up{to{opacity:1;transform:none}}
+.hbot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;padding-top:96px}
+.hbot p{max-width:38ch;color:var(--mut);font-size:13px;margin-bottom:16px}
+.stats{display:flex;gap:32px}.stats b{display:block;font-size:22px;font-weight:500}.stats span{font-size:11px;color:var(--mut)}
+/* services */
+.hd{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;margin-bottom:40px;flex-wrap:wrap}
+h2{font-size:clamp(22px,2.6vw,30px);font-weight:500;letter-spacing:-.01em}.hd p{max-width:34ch;color:var(--mut);font-size:13px}
+.svc{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr);gap:24px}.svc .l{min-height:320px}
+.cards{display:flex;gap:16px;overflow-x:auto;padding:4px 0 16px;scrollbar-width:none}.cards::-webkit-scrollbar{display:none}
+.card{flex:0 0 150px;height:380px;border:1px solid var(--line);border-radius:16px;background:var(--card);padding:20px;position:relative;overflow:hidden;cursor:pointer;text-align:left;color:inherit;font:inherit;transition:flex-basis .5s cubic-bezier(.2,.8,.2,1),background .4s}
+.card .n{font-size:15px}.card .a{position:absolute;right:20px;top:20px;color:var(--mut)}
+.card h3{position:absolute;left:20px;bottom:20px;font-size:14px;font-weight:500;transition:all .4s}
+.card::after{content:"";position:absolute;right:0;bottom:0;width:70%;height:42%;background:radial-gradient(circle,#6a5fe0 1px,transparent 1.5px) 0 0/9px 9px;mask:linear-gradient(135deg,transparent 40%,#000);-webkit-mask:linear-gradient(135deg,transparent 40%,#000);opacity:.7}
+.card .b{opacity:0;position:absolute;left:20px;right:20px;top:64px;font-size:13px;color:#e4e0ff;transition:opacity .3s;pointer-events:none}
+.card .b small{display:block;margin-top:24px;font-size:11px;letter-spacing:.08em;color:#b9b3f5}
+.card.on{flex-basis:300px;background:var(--pur);border-color:#7467f0}.card.on::after{opacity:0}.card.on .n{opacity:0}.card.on h3{top:20px;bottom:auto;font-size:15px}.card.on .b{opacity:1;transition-delay:.25s}
+/* case studies */
+.cs{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:center}
+.row{display:flex;align-items:center;gap:16px;width:100%;padding:16px;border:1px solid transparent;border-bottom-color:var(--line);background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;border-radius:8px;flex-wrap:wrap}
+.row:hover,.row.on{background:#101016;border-color:var(--line)}.row span:first-child{color:var(--mut);font-size:12px;width:24px}.row b{font-weight:500;min-width:110px}
+.tag{font-size:11px;border:1px solid var(--line);border-radius:999px;padding:1px 10px;color:var(--mut)}.row .go{margin-left:auto;opacity:0}.row.on .go{opacity:1}
+.prev{aspect-ratio:4/3;border-radius:16px;border:1px solid var(--line);position:relative;overflow:hidden;transition:background .5s;display:grid;place-items:center}
+.prev::before{content:"";position:absolute;inset:12% 10% 18%;border-radius:10px;background:#0b0f14aa;border:1px solid #ffffff22}.prev span{position:relative;font-weight:500}
+/* testimonials, logos */
+.t2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.q{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:28px}.q p{color:#d9d5f0;margin-bottom:24px}.q small{color:var(--mut)}
+.arc{position:relative;height:150px;margin-top:48px;overflow:hidden}.arc::before{content:"";position:absolute;left:-10%;right:-10%;top:20px;height:300px;border-radius:50%;border-top:2px solid #6a5fe0;box-shadow:0 -14px 40px #5a4fcf66}
+.arc .trk{display:flex;gap:64px;position:absolute;top:38px;left:0;white-space:nowrap;animation:mq 30s linear infinite;font-weight:600;font-size:17px;color:#d9d5f0}
+@keyframes mq{to{transform:translateX(-50%)}}
+/* about */
+.big{font-size:clamp(24px,3.4vw,42px);font-weight:500;line-height:1.25;letter-spacing:-.02em;max-width:22ch}
+.ab{display:grid;grid-template-columns:.7fr 1.3fr;gap:48px;align-items:start}.ab small{color:var(--mut);letter-spacing:.08em;font-size:11px}.acts{display:flex;gap:24px;align-items:center;margin-top:40px}
+.map{height:240px;margin:56px 0;background:radial-gradient(circle,#8d83ff 1.2px,transparent 1.6px) 0 0/9px 9px;mask:radial-gradient(ellipse 45% 70% at 25% 40%,#000 30%,transparent 72%);-webkit-mask:radial-gradient(ellipse 45% 70% at 25% 40%,#000 30%,transparent 72%)}
+.t3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.tm{border:1px solid var(--line);border-radius:16px;background:var(--card);padding:16px;text-align:center}
+.av{aspect-ratio:1/.8;border-radius:10px;margin-bottom:12px;background:radial-gradient(circle at 50% 35%,#6a5fe055,#111 70%);display:grid;place-items:center;font-size:30px;font-weight:600;color:#b9b3f5}.tm small{color:var(--mut)}
+h2.c{text-align:center;margin-bottom:8px}.sub{text-align:center;color:var(--mut);font-size:13px;margin-bottom:32px}
+/* cta/footer */
+.cta{border:1px solid var(--line);border-radius:16px;padding:64px 48px;background:radial-gradient(ellipse 80% 70% at 20% 0,#6a3fd966,transparent 70%),#07060c;display:grid;gap:24px;justify-items:start}
+.fin{min-height:60vh;display:grid;align-content:center;gap:24px;position:relative}.fin h2{font-size:clamp(32px,5vw,56px);font-weight:400;line-height:1.1}
+.orb{position:absolute;right:4%;top:50%;translate:0 -50%;width:min(320px,40vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0,#8d83ff 14%,#2a2175 45%,transparent 70%);filter:blur(1px);opacity:.85}
+footer{border-top:1px solid var(--line);padding:40px 0 48px}footer .wrap{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.clk{font-size:clamp(28px,4vw,44px);font-weight:300;font-variant-numeric:tabular-nums}.cols{display:flex;gap:48px;font-size:12px;color:var(--mut)}.cols div{display:grid;gap:4px;align-content:start}.cols b{color:#fff;font-weight:500}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s}.rv.in{opacity:1;transform:none}
+.review-panel{display:grid;grid-template-columns:1.15fr .85fr;gap:16px}.review-editor,.review-result{border:1px solid var(--line);border-radius:16px;background:var(--card);padding:20px}.review-toolbar,.review-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.review-toolbar label{display:grid;gap:5px;color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.review-toolbar select{margin-left:8px;background:#15151d;border:1px solid var(--line);border-radius:999px;padding:8px 12px;color:var(--text);font:inherit;text-transform:none;letter-spacing:normal}.review-editor textarea{display:block;width:100%;min-height:280px;resize:vertical;margin:18px 0;padding:16px;border:1px solid var(--line);border-radius:10px;background:#050508;color:#f4f2ff;font:13px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace}.review-bottom{color:var(--mut);font:11px ui-monospace,SFMono-Regular,Menlo,monospace}.review-result{display:flex;flex-direction:column;justify-content:center;min-height:360px}.review-result h3{font-size:22px;margin:18px 0 8px;font-weight:500}.review-result p{color:var(--mut);font-size:13px}.review-result .risk-score{font-size:52px;margin:18px 0 4px}.review-result .issue{border-top:1px solid var(--line);padding:14px 0}.review-result .issue strong{font-weight:500}.review-result .fix{color:#e4e0ff;margin-top:8px;padding:10px;border-left:2px solid #6a5fe0;background:#15132a}.review-result .btn{margin-top:12px}.review-result .low{color:#77d6ad}.review-result .medium{color:#f0b45d}.review-result .high{color:#ef8585}
+@media(max-width:860px){nav{display:none}.svc,.cs,.ab,.t2{grid-template-columns:1fr}.t3{grid-template-columns:1fr}.svc .l{min-height:0;height:0}.cta{padding:40px 24px}.card{height:340px}.orb{opacity:.4}.hbot{padding-top:48px}}
+@media(max-width:860px){.review-panel{grid-template-columns:1fr}.review-result{min-height:260px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.rv{opacity:1;transform:none}.ch{opacity:1;transform:none}}
+</style>
 </head>
 <body>
-  <aside class="sidebar" id="sidebar"><div><div class="brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 96 96" width="29" height="29" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="badge" x1="13" y1="10" x2="84" y2="88"><stop stop-color="#b18cff"/><stop offset="1" stop-color="#6d3bd7"/></linearGradient></defs><rect x="4" y="4" width="88" height="88" rx="22" fill="#0b0b12" stroke="url(#badge)" stroke-width="4"/><path d="M48 20 72 29v18c0 15-10 25-24 30-14-5-24-15-24-30V29l24-9Z" fill="#171329" stroke="#8b5cf6" stroke-width="4" stroke-linejoin="round"/><path d="m36 48 8 8 17-19" fill="none" stroke="#d9c8ff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="75" cy="20" r="6" fill="#34d399" stroke="#0b0b12" stroke-width="3"/></svg></span><span class="brand-name">Code Review Coach</span><b>β</b></div><div class="menu-label">Workspace menu</div><nav id="nav" aria-label="Main navigation"></nav></div></aside>
-  <div class="app-shell"><header class="topbar"><button class="mobile-menu" id="mobileMenu" aria-label="Open navigation">☰</button><div class="crumb">Workspace <span>/</span> <strong>Code Review Coach</strong></div><div class="top-actions"><button class="search-btn" id="searchBtn">⌕ <span>Search...</span><kbd>⌘K</kbd></button><button class="icon-btn" id="themeToggle" title="Toggle theme">☾</button><button class="avatar" title="Account">A</button></div></header><main id="app" tabindex="-1"></main><footer class="site-footer">© 2026 Code Review Coach. Built for developers, teams, and safer software.</footer></div>
-  <div class="toast" id="toast" role="status"></div><input id="fileInput" type="file" hidden accept=".js,.ts,.py,.go,.rs,.java,.cpp,.diff,.txt">
-  <script src="/app.js"></script>
-</body></html>
+<div id="ld" role="status" aria-label="Loading"><div class="ldb"><div class="ldf" id="ldf"></div><b id="ldp">0%</b><span>LOADING…</span></div></div>
+<div class="glow" aria-hidden="true"></div>
+<canvas id="fx" aria-hidden="true"></canvas>
+<header><div class="wrap"><a class="logo" href="#hero" aria-label="Code Review Coach home">CODE REVIEW COACH</a>
+<nav aria-label="Primary"><a href="#review">Review</a><a href="#services">Signals</a><a href="#work">Workflow</a><a href="#about">About</a><a href="#contact">History</a></nav>
+<a class="pill" href="#review">Review Code <i aria-hidden="true">↗</i></a></div></header>
+<main>
+<section id="hero"><div class="mark" aria-hidden="true">REVIEW</div><div class="wrap" style="display:flex;flex-direction:column;flex:1">
+<h1 id="h1" aria-label="Understand Every Change Before It Ships">Understand <em>Every Change</em><br><em>Before</em> It Ships</h1>
+<div class="hbot"><div><p>Code Review Coach turns unfamiliar code and diffs into clear risks, explanations, and practical fixes your team can trust.</p><a class="btn" href="#review">Start a Review ↗</a></div>
+<div class="stats"><div><b>4</b><span>Review signals</span></div><div><b>100%</b><span>Actionable feedback</span></div><div><b>24/7</b><span>Local analysis</span></div></div></div></div></section>
+
+<section id="review"><div class="wrap"><div class="hd"><h2>Review your code</h2><p>Paste a snippet or diff and get a focused risk signal, explanation, and suggested next step.</p></div>
+<div class="review-panel"><div class="review-editor"><div class="review-toolbar"><label>Language <select id="language"><option>JavaScript</option><option>TypeScript</option><option>Python</option><option>Go</option><option>Rust</option><option>Other</option></select></label><button class="btn" id="loadSample" type="button">Load sample</button></div><textarea id="code" aria-label="Code to review" placeholder="Paste code or a diff here...">function authorize(user) {
+  if (!user) return false;
+  return user.role === "admin";
+}</textarea><div class="review-bottom"><span id="charCount">0 chars</span><button class="btn" id="reviewBtn" type="button">Review Code ↗</button></div></div><div class="review-result" id="reviewResult"><span class="tag">READY FOR ANALYSIS</span><h3>Your review will appear here.</h3><p>See risk, issues, explanations, and fixes without leaving this page.</p></div></div></div></section>
+
+<section id="services"><div class="wrap">
+<div class="svc"><div class="l" aria-hidden="true"></div><div><div class="hd"><h2>Review signals</h2><p>Explore the signals that turn a code change into a clear, actionable review conversation.</p></div>
+<div class="cards" id="cards" role="tablist" aria-label="Services"></div></div></div></div></section>
+
+<section id="work"><div class="wrap"><div class="hd"><h2>Case Studies</h2><p>Proven results, measurable impact — explore the transformations we’ve delivered.</p></div>
+<div class="cs rv"><div id="rows"></div><div class="prev" id="prev" aria-live="polite"><span id="pv"></span></div></div></div></section>
+
+<section><div class="wrap"><div class="hd"><h2>Built for better<br>review conversations</h2></div>
+<div class="t2 rv"><figure class="q" style="margin:0"><p>“The Coach gives our team a shared language for risk. We spend less time guessing and more time improving the change.”</p><small>Engineering lead · Product team</small></figure>
+<figure class="q" style="margin:0"><p>“It turns unfamiliar code into a clear walkthrough, so a review becomes a learning moment instead of a blocker.”</p><small>Developer · Platform team</small></figure></div></div></section>
+
+<section><div class="wrap" style="text-align:center"><h2 class="c">Signals developers can trust</h2><p class="sub">A focused review loop for safer software</p>
+<div class="arc" aria-hidden="true"><div class="trk" id="trk"></div></div></div></section>
+
+<section id="company"><div class="wrap"><div class="cta rv"><h2 class="big">Make every code change easier to understand.</h2><a class="btn" href="#review">Review a change →</a></div></div></section>
+
+<section id="about"><div class="wrap">
+<div class="ab rv"><small>DEVELOPERS SHIP CHANGES.<br>CODE REVIEW COACH BUILDS CONFIDENCE.</small><div><p class="big" style="max-width:24ch">A practical workspace for understanding code, finding risk, and moving from feedback to a safer merge.</p>
+<div class="acts"><a class="btn" href="#review">Start Reviewing</a><a class="lnk" href="#team">Explore the workflow →</a></div></div></div>
+<div class="map" role="img" aria-label="Dotted world map"></div>
+<p class="big rv" style="font-size:clamp(18px,2.2vw,26px);max-width:40ch;margin-left:auto">Code Review Coach makes analysis accessible, human, and useful by pairing focused signals with explanations developers can act on.</p>
+<h2 class="c" style="margin-top:96px" id="team">The review workflow</h2><p class="sub">A simple loop for clearer, safer changes.</p>
+<div class="t3 rv"><div class="tm"><div class="av">01</div><b>Inspect</b><br><small>Keep the change and context together.</small></div><div class="tm"><div class="av">02</div><b>Explain</b><br><small>Understand behavior, flow, and boundaries.</small></div><div class="tm"><div class="av">03</div><b>Improve</b><br><small>Apply fixes and ship with confidence.</small></div></div>
+<h2 class="c" style="margin-top:96px">How the Coach thinks</h2><p class="sub">Useful signal over noisy automation.</p>
+<div class="t3 rv"><div class="tm"><h3>Actionable</h3><small>Every finding includes a practical next step.</small></div><div class="tm"><h3>Contextual</h3><small>Explanations connect code to its role.</small></div><div class="tm"><h3>Traceable</h3><small>Reviews and release notes stay in history.</small></div></div></div></section>
+
+<section id="contact" class="fin"><div class="wrap" style="position:relative"><div class="orb" aria-hidden="true"></div>
+<h2>Turn review feedback<br><em style="font-style:italic">into momentum</em></h2><p style="color:var(--mut);max-width:34ch;font-size:13px">Start with a snippet, understand the signal, and leave the review with a clear next step.</p>
+<div style="display:flex;gap:24px;align-items:center;margin-top:24px"><a class="btn" href="#review">Review Code</a><a class="lnk" href="#work">See the workflow →</a></div></div></section>
+</main>
+<footer><div class="wrap"><div><a href="#review">Code Review Coach</a><div class="clk" id="clk" aria-hidden="true"></div></div>
+<div class="cols"><div><b>Review</b><a href="#review">Code Review</a><a href="#services">Signals</a><a href="#work">Workflow</a></div><div><b>Workspace</b><a href="#about">About</a><a href="#team">Process</a><a href="#contact">Start</a></div></div></div>
+<div class="wrap" style="margin-top:32px;color:var(--mut);font-size:12px">© 2026 Code Review Coach. Built for clearer, safer software.</div></footer>
+
+<script>
+(()=>{'use strict';
+const $=s=>document.querySelector(s),RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const SV=[['Security Signals','Catch unsafe execution, injection boundaries, unresolved markers, and risky patterns before they reach production.','Security · Validation · Trust'],['Code Explanation','Understand what a function does, why it exists, where it belongs, and how its execution flows.','Inputs · Outputs · Dependencies'],['Line-by-Line','Turn unfamiliar code into a readable walkthrough with context for every meaningful line.','AST · Flow · Context'],['Release Notes','Transform changelog fragments into concise Markdown handoffs for teams and stakeholders.','Markdown · Versions · Handoffs'],['Review History','Keep every review and release note traceable in one local workspace timeline.','SQLite · Timeline · Metrics'],['Team Workflow','Build a repeatable review habit with dashboards, keyboard shortcuts, and practical fixes.','Review · Improve · Ship']];
+const CS=[['Risk Scan',['Security','Reliability','Readability'],'linear-gradient(135deg,#0f3a3a,#07151a)'],['Code Walkthrough',['Explanation','Line by Line'],'linear-gradient(135deg,#27358a,#0a0d24)'],['Fix Forward',['Suggested Fixes','Copy Ready'],'linear-gradient(135deg,#1c5a46,#07140f)'],['Release Handoff',['Markdown','Changelog'],'linear-gradient(135deg,#6a3a1c,#150b05)'],['Review Loop',['History','Dashboard'],'linear-gradient(135deg,#5a2a7a,#0e0615)']];
+$('#cards').innerHTML=SV.map((s,i)=>`<button class="card" role="tab" data-i="${i}" aria-selected="false"><span class="n">0${i+1}</span><span class="a" aria-hidden="true">↗</span><h3>${s[0]}</h3><div class="b">${s[1]}<small>TECH STACK<br>${s[2]}</small></div></button>`).join('');
+$('#rows').innerHTML=CS.map((c,i)=>`<button class="row" data-i="${i}"><span>0${i+1}</span><b>${c[0]}</b>${[].concat(c[1]).map(t=>`<span class="tag">${t}</span>`).join('')}<span class="go" aria-hidden="true">↗</span></button>`).join('');
+$('#trk').innerHTML=[...'12'].map(()=>['Cognizant','Trimble','e2open','Toyota','OWASP','Injazor','Northwind','Acme'].map(n=>`<span>${n}</span>`).join('')).join('');
+const API=['localhost','127.0.0.1'].includes(location.hostname)?`${location.protocol}//${location.hostname}:3001/api`:`${location.origin}/api`;
+const esc=value=>String(value??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
+const codeBox=$('#code'),reviewResult=$('#reviewResult'),reviewButton=$('#reviewBtn');
+const updateCount=()=>$('#charCount').textContent=`${codeBox.value.length.toLocaleString()} chars · ${codeBox.value.split('\n').length} lines`;
+codeBox.addEventListener('input',updateCount);updateCount();
+$('#loadSample').onclick=()=>{codeBox.value='function authorize(user) {\n  if (!user) return false;\n  return user.role === "admin";\n}';updateCount()};
+reviewButton.onclick=async()=>{reviewButton.disabled=true;reviewButton.textContent='Analyzing…';reviewResult.innerHTML='<span class="tag">ANALYZING</span><h3>Scanning the change set…</h3><p>Checking security, reliability, and readability signals.</p>';try{const response=await fetch(`${API}/review`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code:codeBox.value,language:$('#language').value})});if(!response.ok)throw new Error('Review request failed');const data=await response.json();const risk=data.risk.toLowerCase();reviewResult.innerHTML=`<span class="tag ${risk}">${esc(data.risk)} RISK</span><div class="risk-score ${risk}">${esc(data.score)}<small>/100</small></div><h3>${esc(data.summary)}</h3><p>${data.issues.length?`${data.issues.length} actionable concern${data.issues.length===1?'':'s'} found.`:'No blocking issues found. This change is ready for review.'}</p>${data.issues.map(issue=>`<div class="issue"><strong class="${issue.severity.toLowerCase()}">${esc(issue.severity)} · ${esc(issue.title)}</strong><p>${esc(issue.detail)}</p><div class="fix">Suggested fix: ${esc(issue.fix)}</div></div>`).join('')}`}catch(error){reviewResult.innerHTML='<span class="tag high">SERVICE UNAVAILABLE</span><h3>Could not complete the review.</h3><p>Refresh the page and try again. Local development requires the backend to be running with npm start.</p>'}finally{reviewButton.disabled=false;reviewButton.textContent='Review Code ↗'}};
+codeBox.onkeydown=event=>{if((event.metaKey||event.ctrlKey)&&event.key==='Enter'){event.preventDefault();reviewButton.click()}};
+/* hero letters */
+const h1=$('#h1');let d=0;(function split(n){[...n.childNodes].forEach(c=>{if(c.nodeType===3){const f=document.createDocumentFragment();[...c.textContent].forEach(ch=>{if(ch===' '){f.append(' ');return}const s=document.createElement('span');s.className='ch';s.setAttribute('aria-hidden','true');s.style.animationDelay=(d++*28+900)+'ms';s.textContent=ch;f.append(s)});c.replaceWith(f)}else if(c.nodeType===1&&c.tagName!=='BR')split(c)})})(h1);
+/* services */
+let act=0,hov=false;const cards=[...document.querySelectorAll('.card')];
+const setA=i=>{act=i;cards.forEach((c,k)=>{c.classList.toggle('on',k===i);c.setAttribute('aria-selected',k===i)});};setA(0);
+cards.forEach((c,i)=>{c.onclick=()=>setA(i);c.onmouseenter=()=>{hov=true;setA(i)};c.onmouseleave=()=>hov=false});
+setInterval(()=>{if(!hov&&!RM&&inSvc)setA((act+1)%cards.length)},3800);
+/* case studies */
+const rows=[...document.querySelectorAll('.row')];const setC=i=>{rows.forEach((r,k)=>r.classList.toggle('on',k===i));$('#prev').style.background=CS[i][2];$('#pv').textContent=CS[i][0]};setC(0);
+rows.forEach((r,i)=>{r.onmouseenter=r.onfocus=r.onclick=()=>setC(i)});
+/* reveal */
+const io=new IntersectionObserver(e=>e.forEach(x=>x.isIntersecting&&x.target.classList.add('in')),{threshold:.15});document.querySelectorAll('.rv').forEach(e=>io.observe(e));
+/* clock */
+const clk=()=>$('#clk').textContent=new Date().toLocaleTimeString([],{hour12:false});clk();setInterval(clk,1000);
+/* particles */
+const cv=$('#fx'),cx=cv.getContext('2d'),N=1300,R=Math.random,S=[];let W,H,dpr;
+const mk=f=>{const a=new Float32Array(N*3);for(let i=0;i<N;i++)a.set(f(i),i*3);S.push(a)};
+const poly=(segs,t)=>{const L=[];let T=0;segs.forEach(s=>{for(let i=0;i<s.length-1;i++){const l=Math.hypot(s[i+1][0]-s[i][0],s[i+1][1]-s[i][1]);L.push([s[i],s[i+1],l]);T+=l}});return()=>{let r=R()*T,q=L[0];for(const l of L){if(r<=l[2]){q=l;break}r-=l[2]}const u=R();return[q[0][0]+(q[1][0]-q[0][0])*u+(R()-.5)*.04,q[0][1]+(q[1][1]-q[0][1])*u+(R()-.5)*.04,(R()-.5)*t]}};
+mk(i=>{const y=1-2*(i+.5)/N,r=Math.sqrt(1-y*y),p=i*2.4;return[Math.cos(p)*r,y,Math.sin(p)*r]});
+mk(()=>{const p=[R()*2-1,R()*2-1,R()*2-1].map(v=>v*.75),f=R()*3|0;p.forEach((_,k)=>{if(k!==f&&R()<.9)p[k]=(R()<.5?-1:1)*.75});return p});
+{const g=poly([[[-.45,.5],[-.9,0],[-.45,-.5]],[[.15,-.6],[.4,.6]],[[.5,.5],[.95,0],[.5,-.5]]].map(s=>s.map(p=>[p[0]-.05,p[1]])),.3);mk(g)}
+{const b=[[-.6,.35],[-.2,.7],[.2,1.05],[.6,1.4]];mk(()=>{const[x,h]=b[R()*4|0],p=[x+(R()*2-1)*.12,-.7+R()*h,(R()*2-1)*.12],a=R()*3|0;if(a===0)p[0]=x+(R()<.5?-.12:.12);else if(a===1)p[1]=R()<.5?-.7:-.7+h;else p[2]=R()<.5?-.12:.12;return p})}
+mk(i=>{const y=(i/N*2-1)*.95,a=y*5,k=i%3;if(k===2){const u=R(),x0=Math.cos(a)*.4,z0=Math.sin(a)*.4;return[x0*(1-2*u),y,z0*(1-2*u)]}const s=k?1:-1;return[Math.cos(a)*.4*s+(R()-.5)*.04,y,Math.sin(a)*.4*s+(R()-.5)*.04]});
+mk(()=>{const t=R()*6.283,r=.2+R()*.8;return[Math.pow(Math.cos(t),3)*r,Math.pow(Math.sin(t),3)*r,(R()-.5)*.25*(1-r*.5)]});
+{const hx=r=>[...Array(7)].map((_,i)=>[Math.cos(i*1.0472)*r,Math.sin(i*1.0472)*r]);mk(poly([hx(.9),hx(.55),hx(.2),[[0,0],[0,.9]],[[0,0],[.78,-.45]],[[0,0],[-.78,-.45]]],.35))}
+const cur=new Float32Array(N*3).map(()=>(R()*2-1)*1.5);
+let shape=0,tgt=0,off=0,alpha=0,ang=0,px=0,py=0,inSvc=false;
+const rs=()=>{dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr};rs();addEventListener('resize',rs);
+addEventListener('pointermove',e=>{px=e.clientX/innerWidth-.5;py=e.clientY/innerHeight-.5});
+function frame(){requestAnimationFrame(frame);
+const sv=$('#services').getBoundingClientRect(),hr=$('#hero').getBoundingClientRect();
+inSvc=sv.top<H*.6&&sv.bottom>H*.3;const show=hr.bottom>H*.2||inSvc;
+shape=inSvc?act+1:0;const mob=W<860;tgt=inSvc&&!mob?-.27:0;
+off+=(tgt-off)*.06;alpha+=((show?(mob&&inSvc?.25:1):0)-alpha)*.08;cv.style.opacity=alpha.toFixed(2);if(alpha<.02)return;
+ang+=RM?0:.004;const t=S[shape],ca=Math.cos(ang+px),sa=Math.sin(ang+px),ct=Math.cos(.25+py*.3),st=Math.sin(.25+py*.3),sz=Math.min(W,H)*(inSvc?.26:.34);
+cx.setTransform(dpr,0,0,dpr,0,0);cx.clearRect(0,0,W,H);
+const cy=H*(inSvc?.5:.55),cx0=W*(.5+off);
+for(let i=0;i<N;i++){const k=i*3;for(let j=0;j<3;j++)cur[k+j]+=(t[k+j]-cur[k+j])*(RM?1:.05);
+const x=cur[k]*ca+cur[k+2]*sa,z=-cur[k]*sa+cur[k+2]*ca,y=cur[k+1]*ct-z*st,z2=cur[k+1]*st+z*ct,p=1/(2.4-z2),dp=Math.max(0,Math.min(1,(z2+1.4)/2.8));
+cx.fillStyle=`rgba(200,190,255,${(.25+.75*dp).toFixed(2)})`;const s=.9+dp*1.3;cx.fillRect(cx0+x*sz*p*2.2,cy+y*sz*p*2.2,s,s)}}
+frame();
+/* loader */
+let n=0;const done=()=>{$('#ld').classList.add('x');setTimeout(()=>$('#ld').remove(),700)};
+if(RM){done()}else{const iv=setInterval(()=>{n=Math.min(100,n+3+(R()*8|0));$('#ldf').style.height=n+'%';$('#ldp').textContent=n+'%';if(n>=100){clearInterval(iv);setTimeout(done,300)}},55)}
+})();
+</script>
+</body>
+</html>
