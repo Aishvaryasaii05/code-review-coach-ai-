@@ -132,6 +132,11 @@ app.get('/api/history', (req, res) => {
   const rows = db.prepare('SELECT id,type,title,language,risk,score,created_at AS createdAt FROM reviews ORDER BY id DESC LIMIT 100').all();
   res.json(rows);
 });
+app.delete('/api/history', (req, res) => {
+  if (typeof db.exec === 'function') db.exec('DELETE FROM reviews');
+  else { fallbackRows = []; fs.writeFileSync(jsonPath, '[]'); }
+  res.json({ ok: true });
+});
 app.get('/api/history/:type/:id', (req, res) => {
   const row = db.prepare('SELECT * FROM reviews WHERE type = ? AND id = ?').get(req.params.type, req.params.id);
   if (!row) return res.status(404).json({ error: 'Not found' });
